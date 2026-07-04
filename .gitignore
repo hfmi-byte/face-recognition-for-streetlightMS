@@ -1,0 +1,23 @@
+target/
+*.class
+*.jar
+*.war
+
+# 数据库文件（运行时生成，不提交）
+data/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# 日志
+*.log
+logs/
+
+# Maven wrapper缓存
+.mvn/repository
+
+# 系统文件
+.DS_Store
+Thumbs.db

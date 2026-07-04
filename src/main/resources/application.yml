@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: face-detection-demo
+
+  # ── 数据源（H2 嵌入式，开发用）──────────────────────────────
+  datasource:
+    url: jdbc:h2:file:./data/facedb;AUTO_SERVER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+    # 切换 MySQL 时，注释上面 4 行，取消下面 4 行注释：
+    # url: jdbc:mysql://localhost:3306/facedb?useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+    # driver-class-name: com.mysql.cj.jdbc.Driver
+    # username: root
+    # password: yourpassword
+
+  jpa:
+    hibernate:
+      ddl-auto: update     # 自动建表/更新表结构
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+    # 切换 MySQL 时替换为：
+    # database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  # H2 控制台（开发调试用，可通过 /h2-console 访问）
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+logging:
+  level:
+    "[com.example.facedemo]": INFO
+    "[cn.smartjavaai]": WARN
+    "[ai.djl]": WARN
+
+# ── 人脸检测模型配置 ─────────────────────────────────────────
+face:
+  model:
+    path: F:/model/mtcnn
+    confidence-threshold: 0.3
+    nms-threshold: 0.4
+
+  # ── 人脸识别（FaceNet）配置 ──────────────────────────────
+  recognition:
+    model:
+      path: F:/model/facenet  # 将 face_feature.pt 复制到此目录（ASCII路径）
+    threshold: 0.9            # 相似度阈值：超过此值视为同一人（0~1）
